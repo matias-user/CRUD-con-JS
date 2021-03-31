@@ -5,3 +5,4 @@ export const inputApellido = document.querySelector('#inputApellido');
 export const inputFecha = document.querySelector('#inputFecha');
 export const inputHora = document.querySelector('#inputHora');
 export const submit = document.querySelector('#submit');
+export const resultado = document.querySelector('#resultado');
