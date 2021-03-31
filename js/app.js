@@ -17,7 +17,7 @@ function iniciarApp(){
         mostrarDatos( array, resultado );
 
         e.target.reset();
-        
+
         edicionCita( array );
 
     });

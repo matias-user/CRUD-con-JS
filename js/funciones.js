@@ -43,7 +43,7 @@ export const mostrarDatos = ( array, resultado ) => {
             <h5 class="card-title text-uppercase ">${nombre} ${apellido}</h5>
             <p class="card-text">A las: ${hora}</p>
             <p class="card-text">Del dia: ${fecha} agendado.</p>
-            <button class="btn btn-secondary type="submit" id="btnEditar">Editar</button> 
+            <button class="btn btn-secondary btnEditar" type="submit" id="${id}">Editar</button> 
         </div>
         `;
         resultado.appendChild( card );
@@ -61,15 +61,32 @@ export const edicionCita = array => {
     array.forEach( objeto => {
         const { nombre, apellido, fecha, hora, id } = objeto;
 
-        const idWord = id.toString();
-
-        const btnsEditar = document.querySelectorAll('#btnEditar');
+        const btnsEditar = document.querySelectorAll('.btnEditar');
         const btnsEditarArray = Array.from(btnsEditar);
 
         btnsEditarArray.forEach( btn => {
-            btn.addEventListener('click', () => {
-                console.log('Hola');
-            })
+            btn.addEventListener('click', e => {
+                const formulario = document.querySelector('#formulario')
+
+                const nuevoSubmit =  document.createElement('input');
+                nuevoSubmit.className = 'btn btn-info';
+                nuevoSubmit.value = 'Guardar';
+                nuevoSubmit.type = 'button';
+
+                formulario.appendChild( nuevoSubmit);
+
+                const inputNombre = document.querySelector('#inputNombre').value = nombre;
+                const inputApellido = document.querySelector('#inputApellido').value = apellido;
+                const inputFecha = document.querySelector('#inputFecha').value = fecha;
+                const inputHora = document.querySelector('#inputHora').value = hora;
+                
+
+                nuevoSubmit.onclick = () => {
+                    
+                    
+
+                };
+            });
         });
     });
 };
