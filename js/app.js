@@ -1,5 +1,5 @@
 import { inputNombre, inputApellido, inputFecha, inputHora, submit, formulario, resultado } from './selectores.js';
-import { leerDatos, mostrarDatos, array, edicionCita } from './funciones.js';
+import { leerDatos, mostrarDatos, array } from './funciones.js';
 
 document.addEventListener('DOMContentLoaded', () => 
     iniciarApp(),
@@ -18,7 +18,6 @@ function iniciarApp(){
 
         e.target.reset();
 
-        edicionCita( array );
 
     });
 };

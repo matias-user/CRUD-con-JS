@@ -43,11 +43,12 @@ export const mostrarDatos = ( array, resultado ) => {
             <h5 class="card-title text-uppercase ">${nombre} ${apellido}</h5>
             <p class="card-text">A las: ${hora}</p>
             <p class="card-text">Del dia: ${fecha} agendado.</p>
-            <button class="btn btn-secondary btnEditar" type="submit" id="${id}">Editar</button> 
+            <button class="btn btn-secondary btnEditar" type="input" id="${id}">Editar</button> 
         </div>
         `;
         resultado.appendChild( card );
 
+        edicionCita( nombre, apellido, fecha, hora, id);
     });
 };
 
@@ -57,36 +58,55 @@ const limpiarHTML = resultado =>{
     };
 };
 
-export const edicionCita = array => {
-    array.forEach( objeto => {
-        const { nombre, apellido, fecha, hora, id } = objeto;
 
-        const btnsEditar = document.querySelectorAll('.btnEditar');
-        const btnsEditarArray = Array.from(btnsEditar);
+const edicionCita = (nombre, apellido, fecha, hora, id ) => {
+    
+    
+   const btnesEditar = Array.from( document.querySelectorAll('.btnEditar'));
 
-        btnsEditarArray.forEach( btn => {
-            btn.addEventListener('click', e => {
-                const formulario = document.querySelector('#formulario')
+   btnesEditar.forEach( btn => {
 
-                const nuevoSubmit =  document.createElement('input');
-                nuevoSubmit.className = 'btn btn-info';
-                nuevoSubmit.value = 'Guardar';
-                nuevoSubmit.type = 'button';
+        btn.addEventListener('click', () => {
+            
+            document.querySelector('#inputNombre').value = nombre;
+            document.querySelector('#inputApellido').value = apellido;
+            document.querySelector('#inputFecha').value = fecha;
+            document.querySelector('#inputHora').value = hora;
 
-                formulario.appendChild( nuevoSubmit);
+            document.querySelector('#submit').disabled = true;  
 
-                const inputNombre = document.querySelector('#inputNombre').value = nombre;
-                const inputApellido = document.querySelector('#inputApellido').value = apellido;
-                const inputFecha = document.querySelector('#inputFecha').value = fecha;
-                const inputHora = document.querySelector('#inputHora').value = hora;
-                
+           crearButton(id);
 
-                nuevoSubmit.onclick = () => {
-                    
-                    
+           const btnGuardar = document.querySelector('.guardar');
 
-                };
-            });
+           btnGuardar.addEventListener('click', e => {
+               
+                array.forEach( objeto => {
+
+                    if( objeto.id == e.target.id){
+                        objeto.nombre = document.querySelector('#inputNombre').value,
+                        objeto.apellido = document.querySelector('#inputApellido').value
+
+                        mostrarDatos(array, resultado);
+                    }
+                });
+
+           });
         });
-    });
+   });
+};
+
+const crearButton = id => {
+    const button = document.createElement('input');
+    button.className = 'btn btn-secondary guardar';
+    button.type = 'button';
+    button.value = 'Guardar';
+    button.id = id;
+
+    document.querySelector('#formulario').appendChild( button);
+    return button;
+};
+
+const guardar = () => {
+
 };
