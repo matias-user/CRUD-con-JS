@@ -18,6 +18,5 @@ function iniciarApp(){
 
         e.target.reset();
 
-
     });
 };

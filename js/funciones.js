@@ -1,3 +1,5 @@
+const formulario = document.querySelector('#formulario');
+
 export const leerDatos = (inputNombre, inputApellido, inputFecha, inputHora ) => {
     
     const inputNom = inputNombre.value;
@@ -61,33 +63,53 @@ const limpiarHTML = resultado =>{
 
 const edicionCita = (nombre, apellido, fecha, hora, id ) => {
     
-    
    const btnesEditar = Array.from( document.querySelectorAll('.btnEditar'));
 
    btnesEditar.forEach( btn => {
 
-        btn.addEventListener('click', () => {
+        btn.addEventListener('click', e => {
             
-            document.querySelector('#inputNombre').value = nombre;
-            document.querySelector('#inputApellido').value = apellido;
-            document.querySelector('#inputFecha').value = fecha;
-            document.querySelector('#inputHora').value = hora;
+            array.forEach( elemento => {
 
-            document.querySelector('#submit').disabled = true;  
+                if(elemento.id == e.target.id){
+                    document.querySelector('#inputNombre').value = elemento.nombre;
+                    document.querySelector('#inputApellido').value = elemento.apellido;
+                    document.querySelector('#inputFecha').value = elemento.fecha;
+                    document.querySelector('#inputHora').value = elemento.hora;
+
+                    document.querySelector('#submit').disabled = true;  
+
+                    //Si existe button.guardar y toco el btn le traspasara el id.
+                    if( document.querySelector('.guardar') != null){
+                        
+                        document.querySelector('.guardar').id = e.target.id;
+                    }
+                }
+            } );
 
            crearButton(id);
 
            const btnGuardar = document.querySelector('.guardar');
+
+           document.querySelector('.guardar').classList.remove('d-none'); //Si el boton guardar tiene se aprieta por segunda vez le quito d-none.
 
            btnGuardar.addEventListener('click', e => {
                
                 array.forEach( objeto => {
 
                     if( objeto.id == e.target.id){
-                        objeto.nombre = document.querySelector('#inputNombre').value,
-                        objeto.apellido = document.querySelector('#inputApellido').value
+                        objeto.nombre = document.querySelector('#inputNombre').value;
+                        objeto.apellido = document.querySelector('#inputApellido').value;
+                        objeto.hora = document.querySelector('#inputHora').value;
+                        objeto.fecha = document.querySelector('#inputFecha').value;
 
-                        mostrarDatos(array, resultado);
+                        mostrarDatos(array, resultado); //Le inyecto el HTML y el parametro resultado es un selector de tipo div.
+
+                        document.querySelector('#submit').disabled = false; 
+
+                        document.querySelector('.guardar').classList.add('d-none');//Hacer desaparecer btn guardar cuando presione en btn Guardar.
+                        
+                        formulario.reset();
                     }
                 });
 
@@ -97,16 +119,16 @@ const edicionCita = (nombre, apellido, fecha, hora, id ) => {
 };
 
 const crearButton = id => {
-    const button = document.createElement('input');
-    button.className = 'btn btn-secondary guardar';
-    button.type = 'button';
-    button.value = 'Guardar';
-    button.id = id;
 
-    document.querySelector('#formulario').appendChild( button);
-    return button;
+    if( document.querySelector('.guardar') === null ){
+        const button = document.createElement('input');
+        button.className = 'btn btn-secondary guardar';
+        button.type = 'button';
+        button.value = 'Guardar';
+        button.id = id;
+    
+        document.querySelector('#formulario').appendChild( button);
+    }
+    
 };
 
-const guardar = () => {
-
-};
