@@ -45,12 +45,15 @@ export const mostrarDatos = ( array, resultado ) => {
             <h5 class="card-title text-uppercase ">${nombre} ${apellido}</h5>
             <p class="card-text">A las: ${hora}</p>
             <p class="card-text">Del dia: ${fecha} agendado.</p>
-            <button class="btn btn-secondary btnEditar" type="input" id="${id}">Editar</button> 
+            <button class="btn btn-secondary btnEditar" type="input" id="${id}">Editar</button>
+            <input class="btn btn-secondary eliminar" type="button" id="${id}" value="X"></input> 
         </div>
         `;
         resultado.appendChild( card );
 
         edicionCita( nombre, apellido, fecha, hora, id);
+
+        eliminarCita();
     });
 };
 
@@ -61,7 +64,7 @@ const limpiarHTML = resultado =>{
 };
 
 
-const edicionCita = (nombre, apellido, fecha, hora, id ) => {
+export const edicionCita = (nombre, apellido, fecha, hora, id ) => {
     
    const btnesEditar = Array.from( document.querySelectorAll('.btnEditar'));
 
@@ -109,7 +112,7 @@ const edicionCita = (nombre, apellido, fecha, hora, id ) => {
 
                         document.querySelector('.guardar').classList.add('d-none');//Hacer desaparecer btn guardar cuando presione en btn Guardar.
                         
-                        formulario.reset();
+                        
                     }
                 });
 
@@ -129,6 +132,20 @@ const crearButton = id => {
     
         document.querySelector('#formulario').appendChild( button);
     }
-    
 };
 
+export const eliminarCita = () => {
+ 
+    const btnEliminar = Array.from( document.querySelectorAll('.eliminar') );
+    
+
+    btnEliminar.forEach( btn => {
+
+        btn.addEventListener('click', e => {
+
+            array = array.filter( obj => obj.id != e.target.id);
+            
+            mostrarDatos( array, resultado);
+        });
+    });
+};
